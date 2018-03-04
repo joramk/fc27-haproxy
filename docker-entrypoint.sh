@@ -5,8 +5,10 @@ shopt -s nullglob
 
 setup() {
         if [ ! -z "$SELFUPDATE" ]; then
-		sed -i 's/apply_updates = no/apply_updates = yes/g' /etc/yum/yum-cron.conf
-                systemctl enable yum-cron
+		if [ "$SELFUPDATE" != "2" ]; then
+			sed -i 's/apply_updates = no/apply_updates = yes/g' /etc/yum/yum-cron.conf
+                	systemctl enable yum-cron
+		fi
                 yum update -y
         fi
 
