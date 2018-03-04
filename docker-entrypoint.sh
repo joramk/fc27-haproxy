@@ -21,7 +21,7 @@ if [ -e /firstrun ] && [ -z "$OMIT_FIRSTRUN" ]; then
         fi
 
 	if [ ! -z "$HAPROXY_INCROND" ]; then
-		echo "/etc/haproxy/haproxy.cfg IN_MODIFY,IN_NO_LOOP flock -F -x -w1 -E0 /tmp/.haproxy-reload systemctl reload haproxy" >/etc/incron.d/haproxy
+		echo "/etc/haproxy IN_MODIFY,IN_NO_LOOP flock -F -x -w1 -E0 /tmp/.haproxy-reload systemctl reload haproxy" >/etc/incron.d/haproxy
 		systemctl enable incrond
 	fi
 
