@@ -36,8 +36,7 @@ frontend unsecured
 
 backend certbot
     server standalone 127.0.0.1:8888
-    maxconn 8
-    retries 128
+    retries 8
 ~~~
 
 ### Certificate files
@@ -48,7 +47,7 @@ You can start a container in several ways. You should have a persistent read-onl
 
 ### Docker run - Quickstart
 ~~~
-docker run joramk/fc27-haproxy:1.7.3
+docker run joramk/fc27-haproxy:latest
 ~~~
 
 ### Docker run
@@ -57,7 +56,7 @@ docker run -d -p 80:80 -p 443:443 \
     --tmpfs /run --tmpfs /tmp \
     -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
     -e "TIMEZONE=Europe/Berlin" \
-    joramk/fc27-haproxy:1.7.3
+    joramk/fc27-haproxy:latest
 ~~~
 
 ### Docker run with persistent volumes
@@ -68,7 +67,7 @@ docker run -d -p 80:80 -p 443:443 \
     -v /etc/haproxy:/etc/haproxy:ro \
     -v /etc/letsencrypt:/etc/letsencrypt \
     -e "TIMEZONE=Europe/Berlin" \
-    joramk/fc27-haproxy:1.7.3
+    joramk/fc27-haproxy:latest
 ~~~
 
 ### Docker run with all options enabled
@@ -82,7 +81,7 @@ docker run -d -p 80:80 -p 443:443 \
     -e "HAPROXY_LETSENCRYPT_OCSP=1" \
     -e "LETSENCRYPT_DOMAIN_1=www.example.org,someone@example.org"
     -e "LETSENCRYPT_DOMAIN_2=www.example.com,anyone@example.com"
-    joramk/fc27-haproxy:1.7.3
+    joramk/fc27-haproxy:latest
 ~~~
 
 ### Docker swarm
@@ -96,7 +95,7 @@ docker service create -d --log-driver=journald -p 80:80 -p 443:443 --replicas 2 
     -e "HAPROXY_LETSENCRYPT_OCSP=1" \
     -e "LETSENCRYPT_DOMAIN_1=www.example.org,someone@example.org"
     -e "LETSENCRYPT_DOMAIN_2=www.example.com,anyone@example.com"
-    joramk/fc27-haproxy:1.7.3
+    joramk/fc27-haproxy:latest
 ~~~
 
 ### Docker run - My personal configuration
@@ -119,7 +118,7 @@ docker run -d \
     -e "LETSENCRYPT_DOMAIN_1=jira.lonet.org,joramk@gmail.com"
     -e "LETSENCRYPT_DOMAIN_2=confluence.lonet.org,joramk@gmail.com"
     -e "LETSENCRYPT_DOMAIN_3=git.lonet.org,joramk@gmail.com"
-    joramk/fc27-haproxy:1.7.3
+    joramk/fc27-haproxy:latest
 ~~~
 
 ## Issue or update certificates manually
@@ -130,7 +129,7 @@ docker exec -ti <container> certbot-renew
 ## docker ps on successful start
 
     CONTAINER ID        IMAGE                        COMMAND                  CREATED             STATUS                    PORTS               NAMES
-    c2c6dc6cd27f        joramk/fc27-haproxy:1.7.3   "/docker-entrypoin..."   31 seconds ago      Up 30 seconds (healthy)   80/tcp, 443/tcp     fc27_haproxy
+    c2c6dc6cd27f        joramk/fc27-haproxy:latest   "/docker-entrypoin..."   31 seconds ago      Up 30 seconds (healthy)   80/tcp, 443/tcp     fc27_haproxy
 
 ## Found a bug?
 Please report issues on GitHub: https://github.com/joramk/fc27-haproxy/issues
