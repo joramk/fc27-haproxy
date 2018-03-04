@@ -4,7 +4,8 @@ A Fedora 27 based HAProxy docker image with Let´s Encrypt support in different 
 ## Tags
 Tag | Description
 ---|---
-latest | Installs HAProxy v1.8 (stable)
+*latest* | *Installs HAProxy v1.8.4 (rawhide)*
+1.8.4 | Installs HAProxy v1.8.4 (rawhide)
 
 ## Features
 * Automatich self update through the Fedora package management
