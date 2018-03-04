@@ -15,10 +15,13 @@ latest | Installs HAProxy v1.8.4 (rawhide)
 ### Environment variables
 Variable | Description
 ---|---
-TIMEZONE | Sets the container timezone, i.e. `-e "TIMEZONE=Europe/Berlin"` _string_
+TZ | Sets the container timezone, i.e. `-e "TZ=Europe/Berlin"` _string_             
 SELFUPDATE | Activates the Fedora base system package selfupdate _boolean_
+HAPROXY_INCROND | Monitors /etc/haproxy for changes and reloads HAProxy _boolean_
+HAPROXY_DAILY_RELOAD | Reloads the HAProxy configuration every day without tracking changes _boolean_
 HAPROXY_LETSENCRYPT | Activates the LetsEncrypt components and installs the renewal cronjob _boolean_
 HAPROXY_LETSENCRYPT_OCSP | Activates OCSP stapling and the daily update cronjob _boolean_
+HAPROXY_LETSENCRYPT_INCROND | Additional check for LetsEncrypt certificate changes which needs reloading HAProxy _boolean_ 
 LETSENCRYPT\_DOMAIN\_\* | Issues a certificate from LetsEncrypt, i.e. `-e "LETSENCRYPT_DOMAIN_1=www.example.org,mail@example.org"`
 
 ### Required haproxy.cfg
@@ -33,9 +36,11 @@ frontend unsecured
 
 backend certbot
     server standalone 127.0.0.1:8888
-    maxconn 8
-    retries 128
+    retries 8
 ~~~
+
+### Certificate files
+Generated LetsEncrypt certifcate files are created by the `certbot-combine` script and stored in `/etc/letsencrypt/live/*/fullkeychain.pem`. You have to include them manually in your `haproxy.cfg` file.
 
 ## First run configuration
 You can start a container in several ways. You should have a persistent read-only volume for `/etc/haproxy` and a persistent writable volume for `/etc/letsencrypt` when using LetsEncrypt certificates. Here are some examples including my personal run configuration.
