@@ -3,7 +3,7 @@ unset IFS
 set -eo pipefail
 shopt -s nullglob
 
-setup() {
+if [ -e /firstrun ] && [ -z "$OMIT_FIRSTRUN" ]; then
         if [ ! -z "$SELFUPDATE" ]; then
 		if [ "$SELFUPDATE" != "2" ]; then
 			sed -i 's/apply_updates = no/apply_updates = yes/g' /etc/yum/yum-cron.conf
@@ -42,10 +42,6 @@ setup() {
         		/usr/local/sbin/certbot-issue ${array[@]}
 		done
         fi	
-}
-
-if [ -e /firstrun ] && [ -z "$OMIT_FIRSTRUN" ]; then      
-        setup
 fi
 
 rm -f /firstrun
