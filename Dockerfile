@@ -11,7 +11,7 @@ LABEL   name="Fedora - HAproxy 1.8 with Lets Encrypt" \
 
 RUN {	yum update -y; \
         yum install fedora-repos-rawhide openssl certbot cronie procps-ng iputils socat yum-cron -y; \
-	yum --nogpg --disablerepo=* --enablerepo=rawhide --releasever=28 install haproxy -y; \
+	yum --nogpg --disablerepo=* --enablerepo=rawhide --releasever=28 install haproxy-1.8.4 -y; \
         yum clean all && rm -rf /var/cache/yum; \
 }
 
