@@ -18,6 +18,12 @@ setup() {
                 ln -sf "/usr/share/zoneinfo/$TIMEZONE" /etc/localtime
         fi
 
+	if [ ! -z "$HAPROXY_INCROND" ]; then
+		echo "/etc/haproxy/haproxy.cfg IN_CLOSE_WRITE systemctl reload haproxy" >/etc/incron.d/haproxy
+		echo "/etc/letsencrypt/live IN_CLOSE_WRITE systemctl reload haproxy" >/etc/incron.d/letsencrypt
+		systemctl enable incrond
+	fi
+
 	if [ ! -z "$HAPROXY_LETSENCRYPT" ]; then
 		domains=()
 		for var in $(compgen -e); do
