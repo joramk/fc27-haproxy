@@ -20,9 +20,6 @@ setup() {
 
 	if [ ! -z "$HAPROXY_INCROND" ]; then
 		echo "/etc/haproxy/haproxy.cfg IN_CLOSE_WRITE flock -F -x -w5 -E0 /tmp/.haproxy-reload systemctl reload haproxy" >/etc/incron.d/haproxy
-		if [ ! -z "$HAPROXY_LETSENCRYPT" ]; then
-			echo "/etc/letsencrypt/live/*/fullkeychain.pem IN_CLOSE_WRITE flock -F -x -w5 -E0 /tmp/.haproxy-reload systemctl reload haproxy" >/etc/incron.d/letsencrypt
-		fi
 		systemctl enable incrond
 	fi
 
