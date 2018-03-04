@@ -8,10 +8,13 @@ Tag | Description
 1.8.4 | Installs HAProxy v1.8.4 (rawhide)
 
 ## Features
-* Automatic self update through the Fedora package management
-* Latest Fedora 27 base system with full systemd support
-* Integrated LetsEncrypt Certbot with automatic certificate issues and updates 
-* Incrond monitoring for configuration and certifcate changes
+* Daily automatic self update through the Fedora package management
+* Latest Fedora 27 base system with full systemd support and docker instance health check
+* Integrated LetsEncrypt Certbot with automatic certificate issueing, updating and OCSP stapling
+* Automatic reloading with incrond monitoring for configuration and certifcate changes
+
+## Configuration
+Generated LetsEncrypt certifcate files are created by the `certbot-combine` script and stored in `/etc/letsencrypt/live/*/fullkeychain.pem`. You have to include them manually in your `haproxy.cfg` file.
 
 ### Environment variables
 Variable | Description
@@ -40,10 +43,7 @@ backend certbot
     retries 8
 ~~~
 
-### Certificate files
-Generated LetsEncrypt certifcate files are created by the `certbot-combine` script and stored in `/etc/letsencrypt/live/*/fullkeychain.pem`. You have to include them manually in your `haproxy.cfg` file.
-
-## First run configuration
+## First run examples
 You can start a container in several ways. You should have a persistent read-only volume for `/etc/haproxy` and a persistent writable volume for `/etc/letsencrypt` when using LetsEncrypt certificates. Here are some examples including my personal run configuration.
 
 ### Docker run - Quickstart
