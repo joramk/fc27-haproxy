@@ -8,9 +8,10 @@ latest | Installs HAProxy v1.8.4 (rawhide)
 *1.8.4* | *Installs HAProxy v1.8.4 (rawhide)*
 
 ## Features
-* Automatich self update through the Fedora package management
+* Automatic self update through the Fedora package management
 * Latest Fedora 27 base system with full systemd support
 * Integrated LetsEncrypt Certbot with automatic certificate issues and updates 
+* Incrond monitoring for configuration and certifcate changes
 
 ### Environment variables
 Variable | Description
