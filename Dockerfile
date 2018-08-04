@@ -21,7 +21,6 @@ COPY 	haproxy.cron /etc/cron.daily/
 
 RUN {	systemctl enable haproxy crond; \
 	systemctl disable auditd; \
-	touch /firstrun; \
 	chmod +rx /docker-entrypoint.sh /etc/cron.daily/haproxy.cron; \
 	chmod 700 /usr/local/sbin/certbot-*; \
 	mkdir -p /etc/letsencrypt/live; \
