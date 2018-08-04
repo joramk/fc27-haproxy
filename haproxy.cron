@@ -4,7 +4,7 @@
 # Renew certificates from LetsEncrypt
 #
 
-if [ ! -z "$HAPROXY_LETSENCRYPT" ]; then
+if [ -f /.env-haproxy-letsencrypt ]; then
 	/usr/local/sbin/certbot-renew >/dev/null
 fi
 
@@ -13,7 +13,7 @@ fi
 # Reload any configuration changes
 #
 
-if [ ! -z "$HAPROXY_DAILY_RELOAD" ]; then
+if [ -f /.env-haproxy-daily-reload ]; then
         systemctl reload haproxy
 fi
 
@@ -22,7 +22,7 @@ fi
 # Wait for reload to finish then update OCSP stapling
 #
 
-if [ ! -z "$HAPROXY_LETSENCRYPT" ] && [ ! -z "$HAPROXY_LETSENCRYPT_OCSP" ]; then
+if [ -f /.env-haproxy-letsencrypt ] && [ -f /.env-haproxy-letsencrypt-ocsp ]; then
 	sleep 15
 	/usr/local/sbin/certbot-ocsp >/dev/null
 fi
