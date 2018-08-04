@@ -13,7 +13,7 @@ fi
 # Reload any configuration changes
 #
 
-if [ -f /.env-haproxy-daily-reload" ]; then
+if [ -f /.env-haproxy-daily-reload ]; then
         systemctl reload haproxy
 fi
 
