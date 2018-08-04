@@ -26,6 +26,22 @@ RUN {	systemctl enable haproxy crond; \
 	mkdir -p /etc/letsencrypt/live; \
 }
 
+RUN {	yum install -y systemd-devel wget; \
+	yum --releasever=29 --enablerepo=rawhide install -y gcc openssl-devel; \
+	yum clean all && rm -rf /var/cache/yum; \
+	cd /usr/local/src; \
+	wget http://www.haproxy.org/download/1.8/src/haproxy-1.8.13.tar.gz; \
+	tar xvfz haproxy-1.8.13.tar.gz; \
+	cd haproxy-1.8.13; \
+	make TARGET=linux2628 CPU=native USE_PCRE2=1 USE_PCRE2_JIT=1 USE_TFO=1 USE_LINUX_TPROXY=1 USE_CRYPT_H=1 USE_GETADDRINFO=1 USE_ZLIB=1 USE_REGPARM=1 USE_OPENSSL=1 USE_SYSTEMD=1; \
+	make install; \
+	rm -f /etc/systemd/system/multi-user.target.wants/haproxy.service; \
+	cp /usr/lib/systemd/system/haproxy.service /etc/systemd/system/; \
+	sed -i 's/\/usr\//\/usr\/local\//g' /etc/systemd/system/haproxy.service; \
+	systemctl enable haproxy; \
+	rm -rf /usr/local/src/haproxy-1.8.13*; \
+}
+
 HEALTHCHECK CMD systemctl -q is-active haproxy || exit 1
 STOPSIGNAL SIGRTMIN+3
 EXPOSE 80 443
