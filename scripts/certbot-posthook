@@ -15,6 +15,6 @@ done
 # and no daily reload is scheduled afterwards.
 #
 
-if [ ! -e /firstrun ] && [ -z "$HAPROXY_DAILY_RELOAD" ]; then
+if [ -f /.env-haproxy-daily-reload ]; then
 	systemctl reload haproxy
 fi

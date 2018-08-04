@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ! -z "$HAPROXY_LETSENCRYPT" ]; then
+if [ -f /.-env-haproxy-letsencrypt ]; then
         /usr/bin/certbot renew --preferred-challenges http-01 --http-01-port=8888 --post-hook="/usr/local/sbin/certbot-posthook" "$@"
 else
         exit 2
