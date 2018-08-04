@@ -34,6 +34,7 @@ fi
 
 # Issue certificates for given domains if no certificate already exists
 if [ ! -z "$HAPROXY_LETSENCRYPT" ]; then
+	touch /.env-haproxy-letsencrypt
 	domains=()
 	for var in $(compgen -e); do
 	        if [[ "$var" =~ LETSENCRYPT_DOMAIN_.* ]]; then
@@ -46,6 +47,14 @@ if [ ! -z "$HAPROXY_LETSENCRYPT" ]; then
 	       		/usr/local/sbin/certbot-issue ${array[@]}
 		fi
 	done
+fi
+
+if [ ! -z "$HAPROXY_LETSENCRYPT_OCSP" ]; then
+	touch /.env-haproxy-letsencrypt-ocsp
+fi
+
+if [ ! -z "$HAPROXY_DAILY_RELOAD" ]; then
+	touch /.env-haproxy-daily-reload
 fi
 
 exec "$@"
