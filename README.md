@@ -6,6 +6,7 @@ Tag | Description
 ---|---
 *latest* | *Installs HAProxy v1.8.4 (rawhide)*
 1.8.4 | Installs HAProxy v1.8.4 (rawhide)
+tls-1.3 | Installs HAProxy v1.8.13 with TLS 1.3 support
 
 ## Features
 * Daily automatic self update through the Fedora package management
